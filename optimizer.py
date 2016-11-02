@@ -30,3 +30,4 @@ class AdagradOptimizer(object):
         # hint: implementation idea
         #       cache += dx ** 2
         #       p = p - self.lr * dx / (sqrt(cache) + self.eps)
+	pass

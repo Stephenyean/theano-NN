@@ -23,7 +23,7 @@ class Relu(Layer):
 
     def forward(self, inputs):
         # Your codes here
-        pass
+        return T.maximum(0,inputs)
 
 
 class Sigmoid(Layer):
@@ -41,7 +41,10 @@ class Softmax(Layer):
 
     def forward(self, inputs):
         # Your codes here
-        pass
+        #ss=T.exp(inputs - inputs.max)
+	#print inputs.shape
+	s=np.exp(inputs)
+	return (s.transpose()/s.sum(1)).transpose()
 
 
 class Linear(Layer):
@@ -53,7 +56,7 @@ class Linear(Layer):
     def forward(self, inputs):
         # Your codes here
         #return np.multiply(inputs,W)
-        pass
+        return T.dot(T.flatten(inputs,2),self.W) + self.b
 
     def params(self):
         return [self.W, self.b]
@@ -63,7 +66,7 @@ class Convolution(Layer):
     def __init__(self, name, kernel_size, num_input, num_output, init_std):
         super(Convolution, self).__init__(name, trainable=True)
         # Determine ? in W_shape
-        W_shape = (?, ?, ?, ?)
+        # W_shape = (?, ?, ?, ?)
         self.W = sharedX(np.random.randn(*W_shape) * init_std, name=name + '/W')
         self.b = sharedX(np.zeros((num_output)), name=name + '/b')
 
