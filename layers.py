@@ -23,6 +23,7 @@ class Relu(Layer):
 
     def forward(self, inputs):
         # Your codes here
+        pass
 
 
 class Sigmoid(Layer):
@@ -31,6 +32,7 @@ class Sigmoid(Layer):
 
     def forward(self, inputs):
         # Your codes here
+        pass
 
 
 class Softmax(Layer):
@@ -39,6 +41,7 @@ class Softmax(Layer):
 
     def forward(self, inputs):
         # Your codes here
+        pass
 
 
 class Linear(Layer):
@@ -49,6 +52,8 @@ class Linear(Layer):
 
     def forward(self, inputs):
         # Your codes here
+        #return np.multiply(inputs,W)
+        pass
 
     def params(self):
         return [self.W, self.b]
@@ -65,6 +70,7 @@ class Convolution(Layer):
     def forward(self, inputs):
         # Your codes here
         # hint: note how to add bias to a 4-D tensor?
+        pass
 
     def params(self):
         return [self.W, self.b]
@@ -78,3 +84,4 @@ class Pooling(Layer):
     def forward(self, inputs):
         # Your coders here
         # hint: enable ignore border mode
+        pass
