@@ -43,9 +43,9 @@ class Softmax(Layer):
         # Your codes here
         #ss=T.exp(inputs - inputs.max)
 	#print inputs.shape
-	s=np.exp(inputs)
-	return (s.transpose()/s.sum(1)).transpose()
-
+	#s=np.exp(inputs)
+	#return (s.transpose()/s.sum(1)).transpose()
+	return T.nnet.nnet.softmax(inputs)
 
 class Linear(Layer):
     def __init__(self, name, inputs_dim, num_output, init_std):
@@ -66,14 +66,16 @@ class Convolution(Layer):
     def __init__(self, name, kernel_size, num_input, num_output, init_std):
         super(Convolution, self).__init__(name, trainable=True)
         # Determine ? in W_shape
-        # W_shape = (?, ?, ?, ?)
+        W_shape = (num_output, num_input, kernel_size, kernel_size)
         self.W = sharedX(np.random.randn(*W_shape) * init_std, name=name + '/W')
         self.b = sharedX(np.zeros((num_output)), name=name + '/b')
 
     def forward(self, inputs):
         # Your codes here
         # hint: note how to add bias to a 4-D tensor?
-        pass
+	return conv2d(inputs,self.W)+self.b.dimshuffle('x',0,'x','x')
+	
+       
 
     def params(self):
         return [self.W, self.b]
@@ -87,4 +89,4 @@ class Pooling(Layer):
     def forward(self, inputs):
         # Your coders here
         # hint: enable ignore border mode
-        pass
+        return pool_2d(inputs,(self.kernel_size,self.kernel_size),ignore_border=True)
