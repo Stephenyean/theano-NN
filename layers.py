@@ -32,7 +32,7 @@ class Sigmoid(Layer):
 
     def forward(self, inputs):
         # Your codes here
-        pass
+        return T.nnet.nnet.sigmoid(inputs)
 
 
 class Softmax(Layer):

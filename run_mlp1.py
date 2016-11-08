@@ -10,11 +10,9 @@ import theano.tensor as T
 
 train_data, test_data, train_label, test_label = load_mnist_for_mlp('data')
 model = Network()
-model.add(Linear('fc1', 784, 1000, 0.01))
+model.add(Linear('fc1', 784, 256, 0.01))
 model.add(Relu('relu1'))
-model.add(Linear('fc2', 1000, 128, 0.01))
-model.add(Relu('relu2'))
-model.add(Linear('fc3', 128, 10, 0.01))
+model.add(Linear('fc3', 256, 10, 0.01))
 model.add(Softmax('softmax'))
 
 loss = CrossEntropyLoss(name='xent')

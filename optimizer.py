@@ -1,7 +1,7 @@
 import theano.tensor as T
 from utils import sharedX
-
-
+import theano
+import numpy as np
 class SGDOptimizer(object):
     def __init__(self, learning_rate, weight_decay=0.005, momentum=0.9):
         self.lr = learning_rate
@@ -26,8 +26,13 @@ class AdagradOptimizer(object):
         self.eps = eps
 
     def get_updates(self, cost, params):
-        # Your codes here
-        # hint: implementation idea
-        #       cache += dx ** 2
-        #       p = p - self.lr * dx / (sqrt(cache) + self.eps)
-	pass
+        grads = T.grad(cost=cost, wrt=params)
+        updates = []
+	for p, g in zip(params, grads):
+	    value = p.get_value(borrow=True)
+            accu = theano.shared(np.zeros(value.shape, dtype=value.dtype),broadcastable = p.broadcastable)
+            accu_new = accu + g ** 2
+            updates.append((accu,accu_new))
+	    updates.append((p,p-(self.lr * g/T.sqrt(accu_new + self.eps))))
+            #updates[p] = p - (learning_rate * g /T.sqrt(accu_new + self.epsilon))
+        return updates 
