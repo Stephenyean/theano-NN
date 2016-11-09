@@ -10,16 +10,14 @@ import theano.tensor as T
 
 train_data, test_data, train_label, test_label = load_mnist_for_mlp('data')
 model = Network()
-model.add(Linear('fc1', 784, 1000, 0.01))
+model.add(Linear('fc1', 784, 128, 0.01))
 model.add(Relu('relu1'))
-model.add(Linear('fc2', 1000, 128, 0.01))
-model.add(Relu('relu2'))
 model.add(Linear('fc3', 128, 10, 0.01))
 model.add(Softmax('softmax'))
 
 loss = CrossEntropyLoss(name='xent')
 
-optim = SGDOptimizer(learning_rate=0.01, weight_decay=0.005, momentum=0.9)
+optim = SGDOptimizer(learning_rate=0.001, weight_decay=0.005, momentum=0.9)
 #optim = AdagradOptimizer(learning_rate=0.01)
 input_placeholder = T.fmatrix('input')
 label_placeholder = T.fmatrix('label')

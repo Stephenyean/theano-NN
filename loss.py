@@ -8,5 +8,5 @@ class CrossEntropyLoss(object):
     def forward(self, inputs, labels):
         # Your codes here
 	
-	return -(np.multiply(np.log(inputs + 1e-10),labels)).sum()/np.size(inputs,0)
-	# hint: labels are already in one-hot form
+	#return -(np.multiply(np.log(inputs + 1e-10),labels)).sum()/np.size(inputs,0)
+	return T.sum(T.nnet.categorical_crossentropy(inputs,labels))	

@@ -23,8 +23,8 @@ class Relu(Layer):
 
     def forward(self, inputs):
         # Your codes here
-        return T.maximum(0,inputs)
-
+        #return T.maximum(0,inputs)
+	return T.nnet.relu(inputs)
 
 class Sigmoid(Layer):
     def __init__(self, name):
